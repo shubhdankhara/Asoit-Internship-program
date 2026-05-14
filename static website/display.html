@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Student Details</title>
+
+<style>
+body{
+font-family:Arial;
+background:#eef2f7;
+padding:40px;
+}
+
+.box{
+background:white;
+padding:30px;
+width:500px;
+margin:auto;
+border-radius:20px;
+box-shadow:0 0 15px rgba(0,0,0,.2);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Student Information</h2>
+
+<p id="output"></p>
+
+</div>
+
+<script>
+
+const data=new URLSearchParams(window.location.search);
+
+document.getElementById("output").innerHTML=`
+
+<b>Full Name:</b> ${data.get("fullname")}<br><br>
+
+<b>Age:</b> ${data.get("age")}<br><br>
+
+<b>Course:</b> ${data.get("course")}<br><br>
+
+<b>Gender:</b> ${data.get("gender")}<br><br>
+
+<b>Email:</b> ${data.get("email")}<br><br>
+
+<b>Mobile:</b> ${data.get("mobile")}
+
+`;
+
+</script>
+
+</body>
+</html>
+
+<!-- this code is not fully comopleted -->

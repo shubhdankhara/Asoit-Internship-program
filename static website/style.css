@@ -1,0 +1,180 @@
+@keyframes bg {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ===== PAGE ===== */
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    background: linear-gradient(
+        150deg,
+        #020530,
+        #230492,
+        #111661,
+        #010c9e,
+        #0000ff,
+        #6b0aa3,
+        #a30a9b,
+        #1f73b8
+    );
+
+    background-size: 300% 300%;
+    animation: bg 10s ease infinite;
+}
+
+/* ===== FORM CARD ===== */
+.container {
+    width: 100%;
+    max-width: 500px;
+
+    padding: 30px;
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.452);
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.3);
+
+    border: 1px solid rgba(255,255,255,.2);
+
+    color: white;
+}
+
+/* ===== TITLE ===== */
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: white;
+}
+
+/* ===== LABEL ===== */
+label {
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 12px;
+
+    color: white;
+    font-weight: 600;
+}
+
+/* ===== INPUTS ===== */
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.9);
+
+    box-sizing: border-box;
+    margin-bottom: 14px;
+
+    font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    transform: scale(1.02);
+
+    box-shadow:
+        0 0 10px rgba(255,255,255,.5);
+}
+
+/* ===== RADIO & HOBBY ===== */
+.gender-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    margin: 10px 0 18px;
+}
+
+.gender-group input {
+    width: auto;
+}
+
+.gender-group label{
+    display: inline;
+    margin: 0;
+    font-weight: normal;
+}
+
+/* ===== BUTTONS ===== */
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+input[type="submit"],
+input[type="reset"] {
+    width: 140px;
+
+    border: none;
+    border-radius: 30px;
+
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+input[type="submit"] {
+    background: #007bff;
+}
+
+input[type="submit"]:hover {
+    transform: translateY(-3px);
+}
+
+input[type="reset"] {
+    background: #6c757d;
+}
+
+input[type="reset"]:hover {
+    transform: translateY(-3px);
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:600px){
+
+.container{
+    padding:20px;
+    border-radius:20px;
+}
+
+.btn-container{
+    flex-direction:column;
+    align-items:center;
+}
+
+input[type="submit"],
+input[type="reset"]{
+    width:100%;
+}
+}
