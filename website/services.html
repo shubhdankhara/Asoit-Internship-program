@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | Caffe Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        .services-hero {
+            height: 55vh;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            background: linear-gradient(rgba(42,24,16,0.65), rgba(42,24,16,0.75)),
+                        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover; background-position: center;
+            padding-top: 80px;
+        }
+        .services-hero h1 { font-family: var(--font-serif); font-size: 5rem; color: var(--coffee-cream); line-height: 1.1; }
+        .services-hero h1 span { color: var(--coffee-gold); font-style: italic; }
+        .services-hero p { color: rgba(250,247,242,0.75); font-size: 1.15rem; margin-top: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        /* Main Services */
+        .service-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+        .service-block.reverse { direction: rtl; }
+        .service-block.reverse > * { direction: ltr; }
+        .service-img {
+            width: 100%; border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+            object-fit: cover;
+            aspect-ratio: 4/3;
+        }
+        .service-num {
+            font-family: var(--font-serif);
+            font-size: 5rem; color: var(--coffee-gold);
+            opacity: 0.3; line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .service-block h2 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem; margin-bottom: 1.2rem;
+        }
+        .service-block h2 span { color: var(--coffee-gold); font-style: italic; }
+        .service-block p { opacity: 0.72; line-height: 1.8; margin-bottom: 1rem; }
+        .service-tags { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.5rem; }
+        .tag {
+            background: rgba(201,169,97,0.12);
+            color: var(--coffee-medium);
+            border: 1px solid rgba(201,169,97,0.3);
+            padding: 0.4rem 1.1rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .price-card {
+            background: white;
+            border-radius: 30px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid transparent;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .price-card.featured {
+            background: var(--coffee-dark);
+            color: var(--coffee-cream);
+            border-color: var(--coffee-gold);
+        }
+        .price-card.featured .price-desc { color: rgba(250,247,242,0.6); }
+        .price-card.featured .price-feature { border-color: rgba(255,255,255,0.1); color: rgba(250,247,242,0.85); }
+        .price-card:hover { transform: translateY(-8px); box-shadow: 0 25px 60px rgba(0,0,0,0.12); }
+        .featured-badge {
+            position: absolute; top: 1.5rem; right: 1.5rem;
+            background: var(--coffee-gold); color: var(--coffee-dark);
+            padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
+        }
+        .price-name { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; color: var(--coffee-gold); margin-bottom: 1rem; }
+        .price-amount { font-family: var(--font-serif); font-size: 3.5rem; margin-bottom: 0.3rem; }
+        .price-amount span { font-size: 1.2rem; opacity: 0.5; font-style: normal; }
+        .price-desc { opacity: 0.6; font-size: 0.9rem; margin-bottom: 2rem; }
+        .price-features { list-style: none; margin-bottom: 2.5rem; }
+        .price-feature {
+            padding: 0.9rem 0;
+            border-bottom: 1px solid #f0ece4;
+            font-size: 0.92rem;
+            display: flex; align-items: center; gap: 0.7rem;
+        }
+        .price-feature::before { content: '✓'; color: var(--coffee-gold); font-weight: 700; }
+        .price-btn {
+            display: block; width: 100%; padding: 1.1rem;
+            background: var(--coffee-dark); color: white;
+            border: none; border-radius: 15px;
+            font-weight: 600; font-size: 0.9rem;
+            text-align: center; text-decoration: none;
+            cursor: pointer; transition: var(--transition);
+            text-transform: uppercase; letter-spacing: 0.08em;
+        }
+        .price-btn:hover { background: var(--coffee-gold); color: var(--coffee-dark); }
+        .price-card.featured .price-btn { background: var(--coffee-gold); color: var(--coffee-dark); }
+        .price-card.featured .price-btn:hover { background: white; }
+
+        /* FAQ */
+        .faq-item {
+            border-bottom: 1px solid rgba(0,0,0,0.07);
+            padding: 1.8rem 0;
+            cursor: pointer;
+        }
+        .faq-q {
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 600; font-size: 1.05rem;
+        }
+        .faq-icon { font-size: 1.5rem; color: var(--coffee-gold); transition: transform 0.3s; }
+        .faq-a {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: rgba(42,24,16,0.65); line-height: 1.8; font-size: 0.97rem;
+        }
+        .faq-item.open .faq-a { max-height: 200px; padding-top: 1rem; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+        @media (max-width: 900px) {
+            .service-block, .service-block.reverse { grid-template-columns: 1fr; direction: ltr; }
+            .pricing-grid { grid-template-columns: 1fr 1fr; }
+            .services-hero h1 { font-size: 3rem; }
+        }
+        @media (max-width: 600px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor"><div class="bean-shape"></div></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Caffe<span>.</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="registration.html" class="btn-book">Book Table</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="services-hero">
+        <div>
+            <h1>What We <span>Offer</span></h1>
+            <p>Exceptional experiences crafted around the world's finest coffee.</p>
+        </div>
+    </div>
+
+    <!-- Services Detail -->
+    <section>
+        <!-- Roastery -->
+        <div class="service-block">
+            <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&q=80&w=800" alt="Roastery" class="service-img">
+            <div>
+                <div class="service-num">01</div>
+                <h2>Artisan <span>Roastery</span></h2>
+                <p>Our in-house roastery is the heart of Caffe. Using a vintage Probat drum roaster, our Master Roaster Arjun Mehta works in small batches — typically 10–15 kg — to ensure every roast reaches its full potential.</p>
+                <p>We roast every morning before the café opens. This means the coffee in your cup was roasted within the last 48 hours, not weeks ago like supermarket brands. You can taste the difference immediately.</p>
+                <p>We offer four distinct roast profiles: Light (bright & floral), Medium (balanced), Medium-Dark (caramel & nutty), and Dark (bold & smoky). All available for purchase in-store and online.</p>
+                <div class="service-tags">
+                    <span class="tag">Daily Fresh Roast</span>
+                    <span class="tag">4 Roast Profiles</span>
+                    <span class="tag">Small Batch</span>
+                    <span class="tag">Single Origin</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events -->
+        <div class="service-block reverse">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800" alt="Private Events" class="service-img">
+            <div>
+                <div class="service-num">02</div>
+                <h2>Private <span>Events</span></h2>
+                <p>Our private lounge on the upper floor can be exclusively reserved for corporate gatherings, product launches, intimate celebrations, or creative workshops. The space seats up to 40 guests and features its own dedicated bar.</p>
+                <p>Every private event comes with a personalised coffee menu, a dedicated host barista, and optional catering from our kitchen. We've hosted everything from startup pitch nights to anniversary dinners.</p>
+                <p>We also offer bespoke coffee experiences for events — live brewing stations, cupping ceremonies, and cocktail pairings that make your gathering truly unforgettable.</p>
+                <div class="service-tags">
+                    <span class="tag">Up to 40 Guests</span>
+                    <span class="tag">Dedicated Barista</span>
+                    <span class="tag">Custom Menu</span>
+                    <span class="tag">AV Setup Included</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training -->
+        <div class="service-block">
+            <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&q=80&w=800" alt="Barista Training" class="service-img">
+            <div>
+                <div class="service-num">03</div>
+                <h2>Barista <span>Academy</span></h2>
+                <p>Learn from India's finest baristas. Our structured training programmes range from beginner workshops — perfect for coffee lovers who want to brew better at home — to SCA-certified professional courses.</p>
+                <p>Classes are intentionally small (max 6 students) so every participant gets hands-on time on our commercial equipment. You'll learn espresso theory, milk texturing, grind calibration, and sensory evaluation.</p>
+                <p>Our Saturday Morning Cupping is a community favourite — a free weekly session where we taste and compare 4 different coffees, hosted by Arjun himself. Open to all, no booking required.</p>
+                <div class="service-tags">
+                    <span class="tag">SCA Certified Courses</span>
+                    <span class="tag">Max 6 Per Class</span>
+                    <span class="tag">Beginner to Pro</span>
+                    <span class="tag">Free Saturday Cupping</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscription -->
+        <div class="service-block reverse">
+            <img src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=800" alt="Coffee Subscription" class="service-img">
+            <div>
+                <div class="service-num">04</div>
+                <h2>Coffee <span>Subscription</span></h2>
+                <p>Never run out of exceptional coffee. Our subscription service delivers freshly roasted beans to your door within 24 hours of roasting — across Ahmedabad, Surat, Mumbai, and Bangalore.</p>
+                <p>Every month, you can choose your beans, roast level, grind size, and quantity. Subscribers also get early access to seasonal micro-lots and limited single origins that sell out quickly in-store.</p>
+                <p>Pause, skip, or cancel anytime with zero friction. Our subscribers consistently tell us it's the best coffee decision they've ever made.</p>
+                <div class="service-tags">
+                    <span class="tag">24h After Roasting</span>
+                    <span class="tag">Fully Customisable</span>
+                    <span class="tag">Pan-India Delivery</span>
+                    <span class="tag">Easy Pause / Cancel</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section style="background: #f5f0e8; max-width: none; width: 100%;">
+        <div style="max-width:1200px; margin:0 auto; padding: 0 2rem;">
+            <h2 class="section-title">Training <span>Programmes</span></h2>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div class="price-name">Foundation</div>
+                    <div class="price-amount">₹2,500 <span>/ session</span></div>
+                    <div class="price-desc">Perfect for home brewers and coffee enthusiasts.</div>
+                    <ul class="price-features">
+                        <li class="price-feature">3-hour hands-on session</li>
+                        <li class="price-feature">Espresso fundamentals</li>
+                        <li class="price-feature">Milk texturing basics</li>
+                        <li class="price-feature">Take-home recipe card</li>
+                        <li class="price-feature">Coffee & pastry included</li>
+                    </ul>
+                    <a href="registration.html" class="price-btn">Book Session</a>
+                </div>
+                <div class="price-card featured">
+                    <div class="featured-badge">Most Popular</div>
+                    <div class="price-name">Professional</div>
+                    <div class="price-amount">₹12,000 <span>/ 3 days</span></div>
+                    <div class="price-desc">For aspiring baristas and café owners.</div>
+                    <ul class="price-features">
+                        <li class="price-feature">3 full-day intensive</li>
+                        <li class="price-feature">SCA module included</li>
+                        <li class="price-feature">Latte art mastery</li>
+                        <li class="price-feature">Equipment calibration</li>
+                        <li class="price-feature">Certificate of completion</li>
+                    </ul>
+                    <a href="registration.html" class="price-btn">Book Course</a>
+                </div>
+                <div class="price-card">
+                    <div class="price-name">Corporate</div>
+                    <div class="price-amount">₹800 <span>/ person</span></div>
+                    <div class="price-desc">Team experiences for companies and groups.</div>
+                    <ul class="price-features">
+                        <li class="price-feature">Min. 10 participants</li>
+                        <li class="price-feature">Coffee tasting journey</li>
+                        <li class="price-feature">Brewing competition</li>
+                        <li class="price-feature">Private lounge access</li>
+                        <li class="price-feature">Custom branding option</li>
+                    </ul>
+                    <a href="contact.html" class="price-btn">Enquire Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+        <h2 class="section-title">Common <span>Questions</span></h2>
+        <div style="max-width: 760px; margin: 0 auto;">
+            <div class="faq-item">
+                <div class="faq-q">Do I need any prior experience for the Foundation class? <span class="faq-icon">+</span></div>
+                <div class="faq-a">Absolutely none. The Foundation session is designed for complete beginners. We cover everything from scratch — the only requirement is a love of great coffee and curiosity to learn.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Can I visit the roastery during my café visit? <span class="faq-icon">+</span></div>
+                <div class="faq-a">Yes! Our roastery is open to guests Tuesday through Sunday between 9am–11am when roasting is underway. Just ask any of our team and they'll take you through. No booking needed.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">How do I book the private lounge for an event? <span class="faq-icon">+</span></div>
+                <div class="faq-a">Use our contact form or call us directly. We'll send you a detailed proposal within 24 hours. We recommend booking at least 2 weeks in advance for weekday events, and 4 weeks for weekends.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What's included in the coffee subscription? <span class="faq-icon">+</span></div>
+                <div class="faq-a">Subscribers receive 250g or 500g bags of freshly roasted whole beans or ground coffee, delivered on a weekly, bi-weekly, or monthly cadence. Each delivery includes a tasting note card describing the origin and flavour profile.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Is the Saturday Morning Cupping really free? <span class="faq-icon">+</span></div>
+                <div class="faq-a">Completely free. It's our way of giving back to the community that has supported us for 27 years. It runs every Saturday at 9:30am and lasts about 90 minutes. You're welcome to buy coffee afterwards, but there's no obligation whatsoever.</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Caffe<span>.</span></div>
+        <p>123 Coffee Street, Artisanal District, Ahmedabad</p>
+        <p class="copyright">© 2026 CAFFE PREMIUM EXPERIENCE. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // FAQ accordion
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const isOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                if (!isOpen) item.classList.add('open');
+            });
+        });
+        // Scroll reveal
+        document.querySelectorAll('.service-block, .price-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            new IntersectionObserver(([e]) => {
+                if (e.isIntersecting) { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }
+            }, { threshold: 0.1 }).observe(el);
+        });
+    </script>
+</body>
+</html>

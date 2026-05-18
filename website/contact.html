@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Caffe Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        .contact-hero {
+            height: 45vh;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            background: linear-gradient(rgba(42,24,16,0.6), rgba(42,24,16,0.7)),
+                        url('https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover; background-position: center;
+            padding-top: 80px;
+        }
+        .contact-hero h1 { font-family: var(--font-serif); font-size: 4.5rem; color: var(--coffee-cream); }
+        .contact-hero h1 span { color: var(--coffee-gold); font-style: italic; }
+        .contact-hero p { color: rgba(250,247,242,0.75); font-size: 1.1rem; margin-top: 1rem; }
+
+        /* Contact Layout */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        /* Info side */
+        .contact-info h2 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem; margin-bottom: 0.5rem;
+        }
+        .contact-info h2 span { color: var(--coffee-gold); font-style: italic; }
+        .contact-info > p { opacity: 0.65; margin-bottom: 3rem; line-height: 1.7; }
+
+        .info-block {
+            display: flex; gap: 1.5rem; align-items: flex-start;
+            margin-bottom: 2.5rem;
+        }
+        .info-icon {
+            width: 52px; height: 52px; min-width: 52px;
+            background: rgba(201,169,97,0.12);
+            border: 1px solid rgba(201,169,97,0.25);
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+        }
+        .info-block h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--coffee-gold); font-weight: 600; margin-bottom: 0.5rem; }
+        .info-block p { line-height: 1.7; opacity: 0.75; font-size: 0.95rem; }
+        .info-block a { color: var(--coffee-dark); text-decoration: none; opacity: 0.75; }
+        .info-block a:hover { color: var(--coffee-gold); opacity: 1; }
+
+        .hours-table { width: 100%; }
+        .hours-table tr { border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .hours-table td { padding: 0.6rem 0; font-size: 0.9rem; }
+        .hours-table td:last-child { text-align: right; font-weight: 600; color: var(--coffee-medium); }
+        .hours-table tr.today td { color: var(--coffee-gold); font-weight: 700; }
+
+        .social-row { display: flex; gap: 1rem; margin-top: 2.5rem; }
+        .social-btn {
+            display: flex; align-items: center; gap: 0.6rem;
+            padding: 0.7rem 1.3rem;
+            background: white;
+            border: 1px solid rgba(0,0,0,0.07);
+            border-radius: 12px;
+            font-size: 0.85rem; font-weight: 600;
+            text-decoration: none; color: var(--coffee-dark);
+            transition: var(--transition);
+        }
+        .social-btn:hover { background: var(--coffee-dark); color: var(--coffee-cream); transform: translateY(-2px); }
+
+        /* Form side */
+        .contact-form-wrap {
+            background: white;
+            border-radius: 30px;
+            padding: 3.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.07);
+        }
+        .contact-form-wrap h3 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .contact-form-wrap > p { opacity: 0.6; font-size: 0.92rem; margin-bottom: 2.5rem; }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+        .form-group { margin-bottom: 1.4rem; }
+        .form-group label {
+            display: block; font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            font-weight: 600; margin-bottom: 0.6rem;
+            color: var(--coffee-medium);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 1.5px solid #ede9e0;
+            border-radius: 12px;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            color: var(--coffee-dark);
+            background: #fafaf8;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus { border-color: var(--coffee-gold); background: white; }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--coffee-dark);
+            color: white;
+            border: none; border-radius: 15px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            cursor: pointer; transition: var(--transition);
+        }
+        .form-submit:hover { background: var(--coffee-gold); color: var(--coffee-dark); transform: translateY(-2px); }
+        .form-success {
+            display: none; text-align: center; padding: 2rem;
+        }
+        .form-success .tick { font-size: 3rem; margin-bottom: 1rem; }
+        .form-success h4 { font-family: var(--font-serif); font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .form-success p { opacity: 0.6; }
+
+        /* Map section */
+        .map-placeholder {
+            width: 100%;
+            height: 380px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border: none;
+        }
+
+        @media (max-width: 900px) {
+            .contact-layout { grid-template-columns: 1fr; }
+            .contact-hero h1 { font-size: 3rem; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor"><div class="bean-shape"></div></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Caffe<span>.</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="registration.html" class="btn-book">Book Table</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="contact-hero">
+        <div>
+            <h1>Get in <span>Touch</span></h1>
+            <p>We'd love to hear from you — whether you have a question, feedback, or just want to say hello.</p>
+        </div>
+    </div>
+
+    <!-- Main Contact Section -->
+    <section>
+        <div class="contact-layout">
+            <!-- Info -->
+            <div class="contact-info">
+                <h2>Come <span>Find Us</span></h2>
+                <p>We're open every day in the heart of Ahmedabad's Artisanal District. Drop in anytime, or reach out below.</p>
+
+                <div class="info-block">
+                    <div class="info-icon">📍</div>
+                    <div>
+                        <h4>Address</h4>
+                        <p>123 Coffee Street, Artisanal District<br>Navrangpura, Ahmedabad<br>Gujarat – 380 009, India</p>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-icon">📞</div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p><a href="tel:+917926505000">+91 79 2650 5000</a><br>
+                        <a href="tel:+919876543210">+91 98765 43210</a> (WhatsApp)</p>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-icon">✉️</div>
+                    <div>
+                        <h4>Email</h4>
+                        <p><a href="mailto:hello@caffe-premium.com">hello@caffe-premium.com</a><br>
+                        <a href="mailto:events@caffe-premium.com">events@caffe-premium.com</a> (Events & Bookings)</p>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-icon">🕐</div>
+                    <div>
+                        <h4>Opening Hours</h4>
+                        <table class="hours-table">
+                            <tr><td>Monday – Friday</td><td>7:00 AM – 10:00 PM</td></tr>
+                            <tr><td>Saturday</td><td>8:00 AM – 11:00 PM</td></tr>
+                            <tr><td>Sunday</td><td>8:00 AM – 9:00 PM</td></tr>
+                            <tr><td style="opacity:0.5; font-size:0.82rem; padding-top:0.8rem;" colspan="2">Kitchen closes 30 min before closing. Last orders at bar: 15 min before.</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-icon">🅿️</div>
+                    <div>
+                        <h4>Getting Here</h4>
+                        <p>Free parking available in our basement lot (enter from Lane 4). We're a 5-minute walk from Navrangpura BRTS station. Valet available Friday & Saturday evenings.</p>
+                    </div>
+                </div>
+
+                <div class="social-row">
+                    <a class="social-btn" href="#">📸 Instagram</a>
+                    <a class="social-btn" href="#">👍 Facebook</a>
+                    <a class="social-btn" href="#">🐦 Twitter</a>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="contact-form-wrap">
+                <h3>Send Us a Message</h3>
+                <p>We respond to all enquiries within 24 hours on working days.</p>
+
+                <div id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" placeholder="Arjun" id="fname">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" placeholder="Mehta" id="lname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="you@example.com" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone (optional)</label>
+                        <input type="tel" placeholder="+91 98765 43210" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select id="subject">
+                            <option value="">Select a topic</option>
+                            <option>General Enquiry</option>
+                            <option>Table Booking</option>
+                            <option>Private Event</option>
+                            <option>Barista Training</option>
+                            <option>Coffee Subscription</option>
+                            <option>Corporate Enquiry</option>
+                            <option>Feedback</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="message" placeholder="Tell us how we can help…"></textarea>
+                    </div>
+                    <button class="form-submit" onclick="submitForm()">Send Message →</button>
+                </div>
+
+                <div class="form-success" id="formSuccess">
+                    <div class="tick">☕</div>
+                    <h4>Message Received!</h4>
+                    <p>Thank you for getting in touch. We'll respond within 24 hours. In the meantime, why not book a table?</p>
+                    <a href="registration.html" style="display:inline-block; margin-top:1.5rem; padding:0.9rem 2rem; background:var(--coffee-dark); color:white; border-radius:12px; text-decoration:none; font-weight:600;">Book a Table</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map -->
+    <section style="max-width: none; width: 100%; padding: 0 2rem 100px;">
+        <div style="max-width:1200px; margin:0 auto;">
+            <h2 class="section-title">Find <span>Us</span></h2>
+            <iframe
+                class="map-placeholder"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.8!2d72.5714!3d23.0225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDAxJzIxLjAiTiA3MsKwMzQnMTcuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
+                allowfullscreen=""
+                loading="lazy"
+                title="Caffe Location Map">
+            </iframe>
+            <p style="text-align:center; margin-top:1.5rem; opacity:0.5; font-size:0.85rem;">123 Coffee Street, Artisanal District, Navrangpura, Ahmedabad, Gujarat 380009</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Caffe<span>.</span></div>
+        <p>123 Coffee Street, Artisanal District, Ahmedabad</p>
+        <p class="copyright">© 2026 CAFFE PREMIUM EXPERIENCE. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function submitForm() {
+            const fname = document.getElementById('fname').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            if (!fname || !email || !subject || !message) {
+                alert('Please fill in the required fields (Name, Email, Subject, Message).');
+                return;
+            }
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

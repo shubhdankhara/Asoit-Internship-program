@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Table | Caffe Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        .booking-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 5rem;
+            align-items: start;
+            margin-top: 100px;
+        }
+
+        /* Left info */
+        .booking-info h1 { font-family: var(--font-serif); font-size: 3.5rem; line-height: 1.1; margin-bottom: 1rem; }
+        .booking-info h1 span { color: var(--coffee-gold); font-style: italic; }
+        .booking-info > p { opacity: 0.68; line-height: 1.8; margin-bottom: 3rem; }
+
+        .booking-perk {
+            display: flex; gap: 1.2rem; align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+        .perk-icon {
+            width: 48px; height: 48px; min-width: 48px;
+            background: rgba(201,169,97,0.1);
+            border: 1px solid rgba(201,169,97,0.2);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+        .booking-perk h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .booking-perk p { font-size: 0.87rem; opacity: 0.6; line-height: 1.6; }
+
+        .ambience-imgs {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem;
+        }
+        .ambience-imgs img {
+            width: 100%; border-radius: 18px; aspect-ratio: 4/3; object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .ambience-imgs img:first-child { grid-column: 1/-1; aspect-ratio: 16/7; }
+
+        /* Right form */
+        .booking-form-wrap {
+            background: white;
+            border-radius: 30px;
+            padding: 3.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 120px;
+        }
+        .booking-form-wrap h3 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 0.4rem; }
+        .booking-form-wrap > p { opacity: 0.55; font-size: 0.88rem; margin-bottom: 2.5rem; }
+
+        .form-group { margin-bottom: 1.4rem; }
+        .form-group label {
+            display: block; font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            color: var(--coffee-medium); margin-bottom: 0.6rem;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%; padding: 1rem 1.2rem;
+            border: 1.5px solid #ede9e0; border-radius: 12px;
+            font-family: var(--font-sans); font-size: 0.95rem;
+            color: var(--coffee-dark); background: #fafaf8;
+            transition: border-color 0.3s; outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus { border-color: var(--coffee-gold); background: white; }
+
+        .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+
+        /* Seating selector */
+        .seating-options { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+        .seating-opt { display: none; }
+        .seating-opt + label {
+            padding: 0.7rem 1.3rem;
+            border: 1.5px solid #ede9e0;
+            border-radius: 10px; cursor: pointer;
+            font-size: 0.88rem; font-weight: 500;
+            transition: var(--transition);
+            background: #fafaf8;
+        }
+        .seating-opt:checked + label {
+            border-color: var(--coffee-gold);
+            background: rgba(201,169,97,0.1);
+            color: var(--coffee-dark); font-weight: 700;
+        }
+
+        /* Guest selector */
+        .guest-counter {
+            display: flex; align-items: center; gap: 1.5rem;
+        }
+        .guest-btn {
+            width: 44px; height: 44px;
+            border: 1.5px solid #ede9e0; border-radius: 10px;
+            background: #fafaf8; font-size: 1.3rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition); color: var(--coffee-dark);
+        }
+        .guest-btn:hover { border-color: var(--coffee-gold); background: rgba(201,169,97,0.1); }
+        #guestCount { font-family: var(--font-serif); font-size: 1.8rem; min-width: 30px; text-align: center; }
+
+        /* Extras */
+        .extras-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+        .extra-opt { display: none; }
+        .extra-opt + label {
+            display: flex; align-items: center; gap: 0.7rem;
+            padding: 0.9rem 1rem; border: 1.5px solid #ede9e0; border-radius: 12px;
+            cursor: pointer; font-size: 0.85rem; transition: var(--transition);
+            background: #fafaf8;
+        }
+        .extra-opt + label::before {
+            content: ''; width: 18px; height: 18px; min-width: 18px;
+            border: 2px solid #ddd; border-radius: 5px; transition: var(--transition);
+        }
+        .extra-opt:checked + label { border-color: var(--coffee-gold); background: rgba(201,169,97,0.08); }
+        .extra-opt:checked + label::before { background: var(--coffee-gold); border-color: var(--coffee-gold); }
+
+        .book-btn {
+            width: 100%; padding: 1.2rem; margin-top: 0.5rem;
+            background: var(--coffee-dark); color: white;
+            border: none; border-radius: 15px; cursor: pointer;
+            font-family: var(--font-sans); font-size: 0.9rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            transition: var(--transition);
+        }
+        .book-btn:hover { background: var(--coffee-gold); color: var(--coffee-dark); transform: translateY(-2px); }
+
+        .form-note { text-align: center; font-size: 0.78rem; opacity: 0.45; margin-top: 1rem; }
+
+        /* Success state */
+        .booking-success {
+            display: none; text-align: center; padding: 1rem 0;
+        }
+        .booking-success .icon { font-size: 4rem; margin-bottom: 1rem; }
+        .booking-success h4 { font-family: var(--font-serif); font-size: 2rem; margin-bottom: 0.5rem; }
+        .booking-success p { opacity: 0.65; line-height: 1.7; margin-bottom: 1.5rem; }
+        .booking-ref {
+            background: rgba(201,169,97,0.1); border: 1px solid rgba(201,169,97,0.3);
+            border-radius: 15px; padding: 1.2rem;
+            font-family: var(--font-serif); font-size: 1.6rem;
+            color: var(--coffee-gold); letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 900px) {
+            .booking-layout { grid-template-columns: 1fr; }
+            .booking-form-wrap { position: static; }
+            .booking-info h1 { font-size: 2.8rem; }
+        }
+        @media (max-width: 600px) {
+            .form-row-2, .extras-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor"><div class="bean-shape"></div></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Caffe<span>.</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="registration.html" class="btn-book">Book Table</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section>
+        <div class="booking-layout">
+            <!-- Left: Info -->
+            <div class="booking-info">
+                <h1>Reserve Your <span>Table</span></h1>
+                <p>Secure your spot in Ahmedabad's most celebrated café. We accommodate walk-ins, but reservations guarantee you the best table and personalized service.</p>
+
+                <div class="booking-perk">
+                    <div class="perk-icon">☕</div>
+                    <div>
+                        <h4>Complimentary Welcome Drink</h4>
+                        <p>All table reservations receive a complimentary welcome espresso or tea upon arrival.</p>
+                    </div>
+                </div>
+                <div class="booking-perk">
+                    <div class="perk-icon">🎂</div>
+                    <div>
+                        <h4>Special Occasion Arrangements</h4>
+                        <p>Celebrating something? Let us know and we'll arrange a personalised table setup at no extra charge.</p>
+                    </div>
+                </div>
+                <div class="booking-perk">
+                    <div class="perk-icon">🏛️</div>
+                    <div>
+                        <h4>Heritage Setting</h4>
+                        <p>Dine inside our beautifully restored 1930s colonial building with original terrazzo floors and arched ceilings.</p>
+                    </div>
+                </div>
+                <div class="booking-perk">
+                    <div class="perk-icon">🔕</div>
+                    <div>
+                        <h4>No-Hassle Cancellation</h4>
+                        <p>Plans change. Cancel or reschedule up to 2 hours before your reservation with zero charges.</p>
+                    </div>
+                </div>
+
+                <div class="ambience-imgs">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=900" alt="Café Interior">
+                    <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&q=80&w=600" alt="Table Setting">
+                    <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&q=80&w=600" alt="Coffee Bar">
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="booking-form-wrap">
+                <div id="bookingFormContent">
+                    <h3>Make a Reservation</h3>
+                    <p>Takes less than 60 seconds. Confirmation sent instantly.</p>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" id="b_fname" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" id="b_lname" placeholder="Last name">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address *</label>
+                        <input type="email" id="b_email" placeholder="For confirmation email">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" id="b_phone" placeholder="+91 98765 43210">
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label>Date *</label>
+                            <input type="date" id="b_date">
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Time *</label>
+                            <select id="b_time">
+                                <option value="">Select time</option>
+                                <optgroup label="Morning">
+                                    <option>7:00 AM</option>
+                                    <option>7:30 AM</option>
+                                    <option>8:00 AM</option>
+                                    <option>8:30 AM</option>
+                                    <option>9:00 AM</option>
+                                    <option>9:30 AM</option>
+                                    <option>10:00 AM</option>
+                                    <option>10:30 AM</option>
+                                    <option>11:00 AM</option>
+                                    <option>11:30 AM</option>
+                                </optgroup>
+                                <optgroup label="Afternoon">
+                                    <option>12:00 PM</option>
+                                    <option>12:30 PM</option>
+                                    <option>1:00 PM</option>
+                                    <option>2:00 PM</option>
+                                    <option>3:00 PM</option>
+                                    <option>4:00 PM</option>
+                                </optgroup>
+                                <optgroup label="Evening">
+                                    <option>5:00 PM</option>
+                                    <option>6:00 PM</option>
+                                    <option>7:00 PM</option>
+                                    <option>7:30 PM</option>
+                                    <option>8:00 PM</option>
+                                    <option>8:30 PM</option>
+                                    <option>9:00 PM</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Number of Guests</label>
+                        <div class="guest-counter">
+                            <button class="guest-btn" onclick="changeGuests(-1)" type="button">−</button>
+                            <span id="guestCount">2</span>
+                            <button class="guest-btn" onclick="changeGuests(1)" type="button">+</button>
+                            <span style="opacity:0.5; font-size:0.85rem;">guests</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferred Seating</label>
+                        <div class="seating-options">
+                            <input type="radio" name="seating" id="s_any" class="seating-opt" value="any" checked>
+                            <label for="s_any">No Preference</label>
+                            <input type="radio" name="seating" id="s_window" class="seating-opt" value="window">
+                            <label for="s_window">🪟 Window</label>
+                            <input type="radio" name="seating" id="s_outdoor" class="seating-opt" value="outdoor">
+                            <label for="s_outdoor">🌿 Terrace</label>
+                            <input type="radio" name="seating" id="s_bar" class="seating-opt" value="bar">
+                            <label for="s_bar">☕ Bar Seats</label>
+                            <input type="radio" name="seating" id="s_private" class="seating-opt" value="private">
+                            <label for="s_private">🔒 Private</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Special Requests</label>
+                        <div class="extras-grid">
+                            <input type="checkbox" id="x_birthday" class="extra-opt">
+                            <label for="x_birthday">🎂 Birthday / Celebration</label>
+                            <input type="checkbox" id="x_allergy" class="extra-opt">
+                            <label for="x_allergy">🌾 Dietary Requirements</label>
+                            <input type="checkbox" id="x_highchair" class="extra-opt">
+                            <label for="x_highchair">👶 High Chair Needed</label>
+                            <input type="checkbox" id="x_quiet" class="extra-opt">
+                            <label for="x_quiet">🔕 Quiet Table</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Additional Notes</label>
+                        <textarea id="b_notes" placeholder="Any other requests or information we should know…" rows="3"></textarea>
+                    </div>
+
+                    <button class="book-btn" onclick="submitBooking()">Confirm Reservation →</button>
+                    <p class="form-note">Free cancellation up to 2 hours before your booking. No card required.</p>
+                </div>
+
+                <!-- Success -->
+                <div class="booking-success" id="bookingSuccess">
+                    <div class="icon">☕</div>
+                    <h4>You're Reserved!</h4>
+                    <p>Your table has been confirmed. A confirmation email is on its way to your inbox. We look forward to welcoming you.</p>
+                    <div class="booking-ref" id="bookingRef">CAFFE-0000</div>
+                    <p style="margin-top:1rem;">Reference your booking code at the door for priority seating.</p>
+                    <a href="index.html" style="display:inline-block; margin-top:1.5rem; padding:0.9rem 2rem; background:var(--coffee-dark); color:white; border-radius:12px; text-decoration:none; font-weight:600;">← Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Caffe<span>.</span></div>
+        <p>123 Coffee Street, Artisanal District, Ahmedabad</p>
+        <p class="copyright">© 2026 CAFFE PREMIUM EXPERIENCE. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        let guests = 2;
+
+        function changeGuests(delta) {
+            guests = Math.max(1, Math.min(20, guests + delta));
+            document.getElementById('guestCount').textContent = guests;
+        }
+
+        // Set min date to today
+        const dateInput = document.getElementById('b_date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+
+        function submitBooking() {
+            const fname = document.getElementById('b_fname').value.trim();
+            const email = document.getElementById('b_email').value.trim();
+            const phone = document.getElementById('b_phone').value.trim();
+            const date  = document.getElementById('b_date').value;
+            const time  = document.getElementById('b_time').value;
+
+            if (!fname || !email || !phone || !date || !time) {
+                alert('Please fill in all required fields marked with *');
+                return;
+            }
+
+            const ref = 'CAFFE-' + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('bookingRef').textContent = ref;
+            document.getElementById('bookingFormContent').style.display = 'none';
+            document.getElementById('bookingSuccess').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

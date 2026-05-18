@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Caffe Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        .about-hero {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(42,24,16,0.6), rgba(42,24,16,0.7)),
+                        url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            padding-top: 80px;
+        }
+        .about-hero h1 {
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            color: var(--coffee-cream);
+            line-height: 1.1;
+        }
+        .about-hero h1 span { color: var(--coffee-gold); font-style: italic; }
+        .about-hero p { color: rgba(250,247,242,0.8); font-size: 1.2rem; margin-top: 1.5rem; }
+
+        /* Timeline */
+        .timeline { position: relative; padding: 2rem 0; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0; bottom: 0;
+            width: 2px;
+            background: var(--coffee-gold);
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: calc(50% + 3rem);
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: calc(50% + 3rem);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 1rem;
+            width: 16px; height: 16px;
+            background: var(--coffee-gold);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            border: 3px solid var(--coffee-cream);
+            box-shadow: 0 0 0 3px var(--coffee-gold);
+        }
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            max-width: 380px;
+        }
+        .timeline-year {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--coffee-gold);
+            font-style: italic;
+        }
+        .timeline-content h3 { margin: 0.5rem 0; font-size: 1.1rem; }
+        .timeline-content p { opacity: 0.7; font-size: 0.95rem; }
+
+        /* Values */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+        .value-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .value-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .value-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--coffee-dark);
+        }
+        .value-card p { opacity: 0.7; line-height: 1.7; }
+
+        /* Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+        .team-card {
+            text-align: center;
+            transition: var(--transition);
+        }
+        .team-card:hover { transform: translateY(-6px); }
+        .team-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        .team-card h3 { font-family: var(--font-serif); font-size: 1.4rem; margin-bottom: 0.4rem; }
+        .team-card .role { color: var(--coffee-gold); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 1rem; }
+        .team-card p { opacity: 0.65; font-size: 0.9rem; line-height: 1.7; }
+
+        /* Origins */
+        .origins-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .origin-card {
+            background: var(--coffee-dark);
+            color: var(--coffee-cream);
+            border-radius: 25px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .origin-card:hover { transform: scale(1.03); }
+        .origin-img { width: 100%; height: 200px; object-fit: cover; opacity: 0.7; }
+        .origin-info { padding: 2rem; }
+        .origin-info h3 { font-family: var(--font-serif); font-size: 1.5rem; color: var(--coffee-gold); margin-bottom: 0.8rem; }
+        .origin-info p { opacity: 0.75; font-size: 0.92rem; line-height: 1.7; }
+        .origin-tag {
+            display: inline-block;
+            margin-top: 1rem;
+            background: rgba(201,169,97,0.2);
+            color: var(--coffee-gold);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Stats banner */
+        .stats-banner {
+            background: var(--coffee-dark);
+            max-width: none;
+            width: 100%;
+        }
+        .stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        .stat-num {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            color: var(--coffee-gold);
+            font-style: italic;
+        }
+        .stat-label { color: rgba(250,247,242,0.6); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.5rem; }
+
+        @media (max-width: 900px) {
+            .values-grid, .team-grid, .origins-grid { grid-template-columns: 1fr 1fr; }
+            .stats-inner { grid-template-columns: 1fr 1fr; }
+            .timeline::before { left: 1.5rem; }
+            .timeline-item, .timeline-item:nth-child(even) { padding-left: 5rem; padding-right: 0; justify-content: flex-start; }
+            .timeline-dot { left: 1.5rem; }
+            .about-hero h1 { font-size: 3rem; }
+        }
+        @media (max-width: 600px) {
+            .values-grid, .team-grid, .origins-grid, .stats-inner { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="custom-cursor"><div class="bean-shape"></div></div>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Caffe<span>.</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="registration.html" class="btn-book">Book Table</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="about-hero">
+        <div>
+            <h1>Our <span>Story</span></h1>
+            <p>From a humble passion to a city landmark — 27 years of craft.</p>
+        </div>
+    </div>
+
+    <!-- Intro -->
+    <section>
+        <div class="cappuccino-grid">
+            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=800" alt="Roastery" class="cappuccino-img">
+            <div>
+                <h2 class="section-title" style="text-align:left; font-size:2.5rem;">Where <span>Coffee</span> Becomes Art</h2>
+                <p style="font-size:1.15rem; margin-bottom:1.5rem; line-height:1.8;">Founded in 1998 by Master Roaster Arjun Mehta, Caffe began as a small 12-seat espresso bar in Ahmedabad's Artisanal District. The vision was radical for its time: treat every cup as a culinary creation deserving the same reverence as fine cuisine.</p>
+                <p style="margin-bottom:1.5rem; opacity:0.75; line-height:1.8;">Today, we occupy a restored 1930s colonial building, serve over 400 guests daily, and maintain direct relationships with 11 farms across three continents. Yet the spirit remains unchanged — every single cup still gets our full attention.</p>
+                <p style="opacity:0.75; line-height:1.8;">We were Ahmedabad's first specialty coffee bar, first to introduce single-origin pour-overs, and first to host public cupping sessions — a tradition we continue every Saturday morning.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-banner">
+        <div class="stats-inner">
+            <div>
+                <div class="stat-num">27</div>
+                <div class="stat-label">Years of Craft</div>
+            </div>
+            <div>
+                <div class="stat-num">11</div>
+                <div class="stat-label">Farm Partners</div>
+            </div>
+            <div>
+                <div class="stat-num">400+</div>
+                <div class="stat-label">Daily Guests</div>
+            </div>
+            <div>
+                <div class="stat-num">32</div>
+                <div class="stat-label">Roast Profiles</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section>
+        <h2 class="section-title">Our <span>Journey</span></h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">1998</div>
+                    <h3>The First Cup</h3>
+                    <p>Arjun Mehta opens a 12-seat espresso bar with a single La Marzocco machine and beans imported directly from Yirgacheffe, Ethiopia.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2003</div>
+                    <h3>The Roastery Opens</h3>
+                    <p>We install our own Probat drum roaster, becoming one of India's first micro-roasteries to roast fresh daily on-site.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2009</div>
+                    <h3>Farm Direct Program</h3>
+                    <p>Launch of our direct trade model, forging lasting relationships with farmers in Colombia, Ethiopia, and Brazil — cutting out middlemen entirely.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2014</div>
+                    <h3>National Recognition</h3>
+                    <p>Named "Best Specialty Café in Western India" by the India Coffee Guide. Barista Priya Sharma wins the National Latte Art Championship.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <h3>The Grand Expansion</h3>
+                    <p>Renovation of the 1930s colonial building to create our current flagship — tripling our capacity while restoring every original arch and terrazzo floor.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2026</div>
+                    <h3>Today & Beyond</h3>
+                    <p>Launching our Barista Academy and a new subscription coffee program, delivering our roasts to homes across India within 24 hours of roasting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section style="background: linear-gradient(rgba(250,247,242,1), rgba(250,247,242,1)); max-width: none; width: 100%; padding: 100px 2rem;">
+        <div style="max-width:1200px; margin:0 auto;">
+            <h2 class="section-title">What We <span>Believe</span></h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <span class="value-icon">🌱</span>
+                    <h3>Sustainability First</h3>
+                    <p>Every bean we buy comes from farms certified for fair wages, sustainable farming, and environmental stewardship. We believe great coffee and a healthy planet are inseparable.</p>
+                </div>
+                <div class="value-card">
+                    <span class="value-icon">🎨</span>
+                    <h3>Coffee as Craft</h3>
+                    <p>We approach every brew method as a discipline. Our baristas train for months before serving their first cup. Precision, patience, and passion are non-negotiable.</p>
+                </div>
+                <div class="value-card">
+                    <span class="value-icon">🤝</span>
+                    <h3>Community Roots</h3>
+                    <p>From hosting local artists to partnering with neighbourhood businesses, Caffe is deeply woven into Ahmedabad's cultural fabric. We're not just a café — we're a gathering place.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coffee Origins -->
+    <section>
+        <h2 class="section-title">Where Our <span>Beans</span> Come From</h2>
+        <div class="origins-grid">
+            <div class="origin-card">
+                <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&q=80&w=600" alt="Ethiopia" class="origin-img">
+                <div class="origin-info">
+                    <h3>Yirgacheffe, Ethiopia</h3>
+                    <p>Our longest partnership — 18 years with the Washed Heirloom Cooperative. These beans carry bright jasmine and blueberry notes, characteristic of the region's ancient Arabica varietals grown above 2,000 metres.</p>
+                    <span class="origin-tag">Floral · Citrus · Bright</span>
+                </div>
+            </div>
+            <div class="origin-card">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=600" alt="Colombia" class="origin-img">
+                <div class="origin-info">
+                    <h3>Huila, Colombia</h3>
+                    <p>From the steep volcanic slopes of the Andes, our Colombian beans offer a rich caramel sweetness with hints of red apple and a silky, balanced body — perfect as the backbone of our house espresso blend.</p>
+                    <span class="origin-tag">Caramel · Apple · Balanced</span>
+                </div>
+            </div>
+            <div class="origin-card">
+                <img src="https://images.unsplash.com/photo-1544787210-282aa510fc15?auto=format&fit=crop&q=80&w=600" alt="Brazil" class="origin-img">
+                <div class="origin-info">
+                    <h3>Cerrado, Brazil</h3>
+                    <p>Our Brazilian natural-processed beans are sun-dried on raised beds for 30 days, developing an intensely chocolatey, nutty profile with low acidity — beloved by guests who prefer a smooth, classic cup.</p>
+                    <span class="origin-tag">Chocolate · Hazelnut · Smooth</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section>
+        <h2 class="section-title">The <span>People</span> Behind the Cup</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600" alt="Arjun Mehta" class="team-img">
+                <h3>Arjun Mehta</h3>
+                <div class="role">Founder & Master Roaster</div>
+                <p>Trained in Florence and Tokyo, Arjun has spent 30 years chasing the perfect roast. He still personally approves every new bean we bring into the roastery.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600" alt="Priya Sharma" class="team-img">
+                <h3>Priya Sharma</h3>
+                <div class="role">Head Barista & Trainer</div>
+                <p>National Latte Art Champion 2014. Priya leads our barista training programme and is responsible for the impeccable consistency you experience in every cup.</p>
+            </div>
+            <div class="team-card">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=600" alt="Rohan Desai" class="team-img">
+                <h3>Rohan Desai</h3>
+                <div class="role">Head of Sourcing</div>
+                <p>Rohan travels to origin twice a year to visit our farm partners. He ensures every relationship we have is built on transparency, fair pricing, and genuine mutual respect.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Caffe<span>.</span></div>
+        <p>123 Coffee Street, Artisanal District, Ahmedabad</p>
+        <p class="copyright">© 2026 CAFFE PREMIUM EXPERIENCE. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.querySelectorAll('.value-card, .origin-card, .team-card, .timeline-content').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+            new IntersectionObserver(([e]) => {
+                if (e.isIntersecting) { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }
+            }, { threshold: 0.1 }).observe(el);
+        });
+    </script>
+</body>
+</html>
