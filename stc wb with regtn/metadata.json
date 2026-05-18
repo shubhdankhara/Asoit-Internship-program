@@ -1,8 +1,0 @@
-{
-  "name": "Caffe Premium",
-  "description": "A high-end, immersive coffee experience with detailed guides on cappuccino, production, and various coffee recipes.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
-}
